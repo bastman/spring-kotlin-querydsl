@@ -12,6 +12,8 @@ buildscript {
         swaggerVersion = '2.7.0'
         mockitoVersion = '2.8.47'
         postgresDriverVersion = '42.1.4'
+        queryDslVersion = '4.1.4'
+        hibernateVersion = '5.2.7.Final'
     }
 
     dependencies {
@@ -32,6 +34,18 @@ apply plugin: "kotlin-noarg"
 apply plugin: "org.springframework.boot"
 
 
+apply plugin: 'kotlin-jpa'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'idea'
+
+idea {
+    module {
+        def kaptMain = file('build/generated/source/kapt/main')
+        sourceDirs += kaptMain
+        generatedSourceDirs += kaptMain
+    }
+}
+
 compileKotlin {
     kotlinOptions.jvmTarget = "1.8"
 }
@@ -50,6 +64,7 @@ dependencies {
 
     compile("org.springframework.boot:spring-boot-starter-web")
     compile("org.springframework.boot:spring-boot-starter-actuator")
+    compile "org.springframework.boot:spring-boot-starter-data-jpa"
     // jackson json
     compile "com.fasterxml.jackson.module:jackson-modules-java8:$jacksonVersion"
     compile "com.fasterxml.jackson.module:jackson-module-kotlin:$jacksonVersion"
@@ -64,10 +79,23 @@ dependencies {
     compile group: 'com.google.code.findbugs', name: 'jsr305', version: '3.0.2'
 
 
-    // jooq & postgres
-    // https://mvnrepository.com/artifact/org.jooq/jooq
+    // postgres
     compile "org.postgresql:postgresql:${postgresDriverVersion}"
 
+    // db: hibernate, flyway, postgres
+    compile "org.hibernate:hibernate-core:$hibernateVersion"
+    compile "org.hibernate:hibernate-entitymanager:$hibernateVersion"
+    compile "org.hibernate:hibernate-java8:$hibernateVersion"
+    //compile "org.flywaydb:flyway-core:4.1.1"
+
+    //querydsl
+    compile "com.querydsl:querydsl-jpa:${queryDslVersion}"
+    kapt "com.querydsl:querydsl-apt:${queryDslVersion}:jpa"
+    // JSR-330 javax.inject annotations - required by querydsl
+    compile group: 'javax.inject', name: 'javax.inject', version: '1'
+    // https://github.com/querydsl/querydsl/blob/master/querydsl-examples/querydsl-example-sql-spring/pom.xml
+    //compile "com.querydsl:querydsl-sql:${queryDslVersion}"
+    //compile "com.querydsl:querydsl-sql-spring:${queryDslVersion}"
 }
 
 test {

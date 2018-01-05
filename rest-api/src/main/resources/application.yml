@@ -4,6 +4,20 @@ spring:
     active: local
   datasource:
     driver-class-name: org.postgresql.Driver
+
+  jpa:
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
+        use_sql_comments: true
+        generate_statistics: false
+
+logging:
+  level:
+    org:
+      hibernate:
+        type: info
 app:
   appName: "spring-kotlin-querydsl"
 ---

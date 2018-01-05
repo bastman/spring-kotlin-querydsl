@@ -1,6 +1,21 @@
 # spring-kotlin-querydsl
-playground for spring-boot, kotlin , querydsl
+playground for spring-boot, kotlin , querydsl (with jpa, hibernate)
 
+## build
+
+```
+    # $ make -C rest-api help
+    $ make -C rest-api app.build
+
+```
+
+## run local db (docker)
+
+```
+    # $ make -C rest-api help
+    $ make -C rest-api db.local.up
+
+```
 
 ## note: get rid of hibernate?
 

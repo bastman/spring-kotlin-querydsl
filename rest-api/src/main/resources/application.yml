@@ -1,0 +1,9 @@
+---
+spring:
+  profiles:
+    active: local
+  datasource:
+    driver-class-name: org.postgresql.Driver
+app:
+  appName: "spring-kotlin-querydsl"
+---

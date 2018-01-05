@@ -20,7 +20,7 @@ class TweetRepoService(
         private val jpaRepo: TweetJpaRepository
 ) : QueryDslRepositorySupport(Tweet::class.java) {
 
-    fun getOneById(id: UUID): Tweet? = jpaRepo.getOne(id)
+    fun getOneById(id: UUID): Tweet? = jpaRepo.findOne(id)
 
     fun requireOneById(id: UUID): Tweet
             = getOneById(id) ?: throw EntityNotFoundException("TweetRecord NOT FOUND ! (id=$id)")

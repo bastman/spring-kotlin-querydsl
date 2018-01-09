@@ -24,10 +24,10 @@ data class BookDto(
         val author: AuthorDto
 )
 
-fun Author.toAuthorDto() = AuthorDto(id=id,createdAt = createdAt,modifiedAt = modifiedAt,name = name)
+fun Author.toAuthorDto() = AuthorDto(id = id, createdAt = createdAt, modifiedAt = modifiedAt, name = name)
 
-fun AuthorCreateRequest.toAuthorRecord():Author {
-    val now=Instant.now()
+fun AuthorCreateRequest.toAuthorRecord(): Author {
+    val now = Instant.now()
     return Author(
             id = UUID.randomUUID(),
             createdAt = now,
@@ -37,8 +37,8 @@ fun AuthorCreateRequest.toAuthorRecord():Author {
     )
 }
 
-fun BookCreateRequest.toBookRecord():Book {
-    val now=Instant.now()
+fun BookCreateRequest.toBookRecord(): Book {
+    val now = Instant.now()
     return Book(
             id = UUID.randomUUID(),
             createdAt = now,
@@ -51,14 +51,14 @@ fun BookCreateRequest.toBookRecord():Book {
     )
 }
 
-fun BookRecordJoinAuthorRecord.toBookDto() = {
-    BookDto(
-            id = bookRecord.id,
-            createdAt = bookRecord.createdAt,
-            modifiedAt = bookRecord.modifiedAt,
-            title = bookRecord.title,
-            status = bookRecord.status,
-            price = bookRecord.price,
-            author = authorRecord.toAuthorDto()
-    )
-}
+fun BookRecordJoinAuthorRecord.toBookDto() =
+        BookDto(
+                id = bookRecord.id,
+                createdAt = bookRecord.createdAt,
+                modifiedAt = bookRecord.modifiedAt,
+                title = bookRecord.title,
+                status = bookRecord.status,
+                price = bookRecord.price,
+                author = authorRecord.toAuthorDto()
+        )
+

@@ -1,7 +1,6 @@
 package com.example.api.bookstore.domain.repo
 
 import com.example.api.bookstore.domain.db.Author
-import com.example.api.bookstore.domain.db.QAuthor
 import com.example.api.bookstore.domain.db.QTables
 import com.example.api.common.EntityAlreadyExistException
 import com.example.api.common.EntityNotFoundException

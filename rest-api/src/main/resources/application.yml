@@ -6,12 +6,18 @@ spring:
     driver-class-name: org.postgresql.Driver
 
   jpa:
+    show-sql: true
     properties:
       hibernate:
         show_sql: true
         format_sql: true
         use_sql_comments: true
         generate_statistics: false
+        naming-strategy: org.hibernate.cfg.ImprovedNamingStrategy
+        search:
+          default.directory_provider: filesystem
+          # make sure app as permissions !!!
+          default.indexBase: /tmp/spring-kotlin-querydsl/lucene/indexes/
 
 logging:
   level:

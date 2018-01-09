@@ -1,5 +1,6 @@
 package com.example.api.bookstore
 
+import com.example.api.bookstore.domain.es.AuthorSearch
 import com.example.api.bookstore.domain.repo.AuthorRepoService
 import com.example.api.bookstore.domain.repo.BookRepoService
 import mu.KLogging
@@ -10,7 +11,8 @@ import java.util.*
 @RestController
 class BookStoreApiController(
         private val authorRepo: AuthorRepoService,
-        private val bookRepo: BookRepoService
+        private val bookRepo: BookRepoService,
+        private val authorSearch: AuthorSearch
 ) {
 
     @GetMapping("/api/bookstore/authors")
@@ -69,6 +71,13 @@ class BookStoreApiController(
 
     @GetMapping("/api/bookstore/books/summary")
     fun booksFindAllAsSummary() = bookRepo.findAllBooksJoinAuthorAsSummary()
+
+
+
+
+    @GetMapping("/api/bookstore/authors/search")
+    fun authorsSearch(@RequestParam q:String) =
+            authorSearch.search(q).toList().map { it.toAuthorDto() }
 
     companion object : KLogging()
 }

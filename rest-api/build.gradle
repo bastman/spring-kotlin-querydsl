@@ -96,6 +96,12 @@ dependencies {
     // https://github.com/querydsl/querydsl/blob/master/querydsl-examples/querydsl-example-sql-spring/pom.xml
     //compile "com.querydsl:querydsl-sql:${queryDslVersion}"
     //compile "com.querydsl:querydsl-sql-spring:${queryDslVersion}"
+
+    // hibernate lucene search
+// https://mvnrepository.com/artifact/org.hibernate/hibernate-search-orm
+    compile group: 'org.hibernate', name: 'hibernate-search-orm', version: '5.8.2.Final'
+
+
 }
 
 test {

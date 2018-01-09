@@ -1,13 +1,17 @@
 package com.example.api.bookstore
 
 import com.example.api.bookstore.domain.repo.AuthorRepoService
+import com.example.api.bookstore.domain.repo.BookRepoService
 import mu.KLogging
 import org.springframework.web.bind.annotation.*
 import java.time.Instant
 import java.util.*
 
 @RestController
-class BookStoreApiController(private val authorRepo: AuthorRepoService) {
+class BookStoreApiController(
+        private val authorRepo: AuthorRepoService,
+        private val bookRepo: BookRepoService
+) {
 
     @GetMapping("/api/bookstore/author")
     fun authorsFindAll() =
@@ -35,6 +39,30 @@ class BookStoreApiController(private val authorRepo: AuthorRepoService) {
             .let { authorRepo.update(it) }
             .also { logger.info { "Updated Record: $it" } }
             .toAuthorDto()
+
+
+    @GetMapping("/api/bookstore/book/{id}")
+    fun booksGetOne(@PathVariable id: UUID) =
+            bookRepo.requireOneById(id)
+
+    @PutMapping("/api/bookstore/book")
+    fun booksCreateOne(@RequestBody req: BookCreateRequest) =
+            req.toBookRecord()
+                    .let { bookRepo.insert(it) }
+                    .also { logger.info { "Updated Record: $it" } }
+
+
+    @PostMapping("/api/bookstore/book/{id}")
+    fun booksUpdateOne(@PathVariable id: UUID, @RequestBody req: BookUpdateRequest)
+            = bookRepo.requireOneById(id)
+            .copy(modifiedAt = Instant.now(), title = req.title, status = req.status, price = req.price)
+            .let { bookRepo.update(it) }
+            .also { logger.info { "Updated Record: $it" } }
+    /*
+          @GetMapping("/api/bookstore/book")
+      fun booksFindAll() = bookRepo.findAllBooksJoinAuthor().map { it.toBookDto() }
+
+       */
 
 
     companion object : KLogging()

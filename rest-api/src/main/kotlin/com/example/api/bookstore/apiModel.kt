@@ -1,6 +1,7 @@
 package com.example.api.bookstore
 
 import com.example.api.bookstore.domain.db.Author
+import com.example.api.bookstore.domain.db.Book
 import com.example.api.bookstore.domain.db.BookStatus
 import java.math.BigDecimal
 import java.time.Instant
@@ -32,5 +33,19 @@ fun AuthorCreateRequest.toAuthorRecord():Author {
             modifiedAt = now,
             version = 0,
             name = name
+    )
+}
+
+fun BookCreateRequest.toBookRecord():Book {
+    val now=Instant.now()
+    return Book(
+            id = UUID.randomUUID(),
+            createdAt = now,
+            modifiedAt = now,
+            version = 0,
+            authorId = authorId,
+            title = title,
+            status = status,
+            price = price
     )
 }

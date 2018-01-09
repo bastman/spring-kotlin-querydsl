@@ -14,6 +14,8 @@ playground for spring-boot, kotlin , querydsl (with jpa, hibernate)
     $ make -C rest-api db.local.up
 
 ```
+## the magic behind the query-dsl-kapt-codegenerator
+- https://github.com/querydsl/querydsl/tree/master/querydsl-jpa
 
 
 ## This example project is based on ...

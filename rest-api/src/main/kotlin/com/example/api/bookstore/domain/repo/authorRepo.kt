@@ -2,6 +2,7 @@ package com.example.api.bookstore.domain.repo
 
 import com.example.api.bookstore.domain.db.Author
 import com.example.api.bookstore.domain.db.QAuthor
+import com.example.api.bookstore.domain.db.QTables
 import com.example.api.common.EntityAlreadyExistException
 import com.example.api.common.EntityNotFoundException
 import org.springframework.data.jpa.repository.JpaRepository
@@ -44,11 +45,11 @@ class AuthorRepoService(
                     .let { jpaRepo.save(it) }
 
     fun findAll() =
-            from(Q_RECORD)
+            from(Q_CRUD_TABLE)
                     .fetchAll().fetchResults()
 
     companion object {
         val CRUD_RECORD_NAME = "AuthorRecord"
-        val Q_RECORD = QAuthor.author
+        val Q_CRUD_TABLE = QTables.AUTHOR
     }
 }

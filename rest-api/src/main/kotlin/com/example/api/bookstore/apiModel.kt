@@ -3,6 +3,7 @@ package com.example.api.bookstore
 import com.example.api.bookstore.domain.db.Author
 import com.example.api.bookstore.domain.db.Book
 import com.example.api.bookstore.domain.db.BookStatus
+import com.example.api.bookstore.domain.repo.BookRecordJoinAuthorRecord
 import java.math.BigDecimal
 import java.time.Instant
 import java.util.*
@@ -47,5 +48,17 @@ fun BookCreateRequest.toBookRecord():Book {
             title = title,
             status = status,
             price = price
+    )
+}
+
+fun BookRecordJoinAuthorRecord.toBookDto() = {
+    BookDto(
+            id = bookRecord.id,
+            createdAt = bookRecord.createdAt,
+            modifiedAt = bookRecord.modifiedAt,
+            title = bookRecord.title,
+            status = bookRecord.status,
+            price = bookRecord.price,
+            author = authorRecord.toAuthorDto()
     )
 }

@@ -1,5 +1,6 @@
 package com.example.api.tweeter.domain
 
+import com.example.api.common.EntityNotFoundException
 import com.example.api.tweeter.domain.entities.QTweet
 import com.example.api.tweeter.domain.entities.Tweet
 import com.querydsl.jpa.impl.JPAQueryFactory

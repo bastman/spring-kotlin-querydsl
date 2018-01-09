@@ -11,13 +11,13 @@ object QueryDslOperation {
     const val LOE = "loe"
 }
 
-enum class QueryDslPredicateCombiner(val text:String) {
+enum class QueryDslPredicateCombiner(val text: String) {
     ALL_OF("allOf"),
     ANY_OF("anyOf")
     ;
 
     @JsonValue
-    fun jsonValue():String = text
+    fun jsonValue(): String = text
 }
 
 

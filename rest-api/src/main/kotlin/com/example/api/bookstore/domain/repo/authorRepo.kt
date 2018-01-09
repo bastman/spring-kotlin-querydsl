@@ -22,16 +22,16 @@ class AuthorRepoService(
     fun getOneById(id: UUID): Author? = jpaRepo.findOne(id)
 
     fun requireOneById(id: UUID): Author
-            = getOneById(id) ?: throw EntityNotFoundException("AuthorRecord NOT FOUND ! (id=$id)")
+            = getOneById(id) ?: throw EntityNotFoundException("$CRUD_RECORD_NAME NOT FOUND ! (id=$id)")
 
     fun existsById(id: UUID) = jpaRepo.exists(id)
 
     fun requireExistsById(id: UUID) {
-        if (!existsById(id)) throw EntityNotFoundException("AuthorRecord NOT FOUND ! (id=$id)")
+        if (!existsById(id)) throw EntityNotFoundException("$CRUD_RECORD_NAME NOT FOUND ! (id=$id)")
     }
 
     fun requireDoesNotExistById(id: UUID) {
-        if (existsById(id)) throw EntityAlreadyExistException("AuthorRecord ALREADY EXIST ! (id=$id)")
+        if (existsById(id)) throw EntityAlreadyExistException("$CRUD_RECORD_NAME ALREADY EXIST ! (id=$id)")
     }
 
 
@@ -44,6 +44,11 @@ class AuthorRepoService(
                     .let { jpaRepo.save(it) }
 
     fun findAll() =
-            from(QAuthor.author)
+            from(Q_RECORD)
                     .fetchAll().fetchResults()
+
+    companion object {
+        val CRUD_RECORD_NAME = "AuthorRecord"
+        val Q_RECORD = QAuthor.author
+    }
 }
